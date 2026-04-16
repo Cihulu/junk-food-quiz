@@ -225,9 +225,9 @@ export const QUESTIONS: Question[] = [
     dimension: "ENERGY",
     text: "你的食用场景？",
     options: [
-      { text: "路边香气传过来，腿就走过去了", scores: { ENERGY: 2 } },
-      { text: "总是有个理由，总是刚刚好那个时刻", scores: { ENERGY: 1 } },
-      { text: "某年某月的某一天，我的美味终于被认可", scores: { ENERGY: 0 } },
+      { text: "人走在路上，不小心闻到我的香味，于是坚定地选择了我", scores: { ENERGY: 2 } },
+      { text: "这个嘛，人类总是有个理由还是借口的，我咋知道", scores: { ENERGY: 1 } },
+      { text: "某年某月的某一天，我的美味终于被ta发现", scores: { ENERGY: 0 } },
       { text: "。。。。什么场景什么痛点什么颗粒度什么什么什么意思。。", scores: { ENERGY: 1 } },
     ],
   },

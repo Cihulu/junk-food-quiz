@@ -84,7 +84,7 @@ export default function Home() {
     }
 
     return (
-      <main className="min-h-screen flex flex-col items-center justify-center bg-yellow-50 p-8">
+      <main className="min-h-screen flex flex-col items-center bg-yellow-50 p-8 pt-12">
         <div className="max-w-lg w-full space-y-6">
           <div className="flex items-center gap-3">
             {current > 0 && (
