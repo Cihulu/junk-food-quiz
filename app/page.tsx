@@ -165,7 +165,7 @@ export default function Home() {
             gap: 12,
             border: "1px solid #fed7aa",
             fontFamily: "-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif",
-            width: 400,
+            width: "min(400px, 100%)",
             boxSizing: "border-box",
             marginLeft: "auto",
             marginRight: "auto",
