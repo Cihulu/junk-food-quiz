@@ -66,6 +66,7 @@ export default function Home() {
           >
             开始测试 →
           </button>
+          <p className="text-xs text-gray-400">测试结果仅供娱乐 · 图片由豆包AI生成 · 作者@西葫芦爆炒鸡蛋</p>
         </div>
       </main>
     );
@@ -170,9 +171,12 @@ export default function Home() {
               </div>
             </div>
             {/* 截图钩子 */}
-            <div className="pt-1 border-t border-orange-100 flex items-center justify-between">
-              <p className="text-xs text-gray-400">测你的结果 → junk-food-quiz.vercel.app</p>
-              <p className="text-xs text-gray-400">@西葫芦爆炒鸡蛋</p>
+            <div className="pt-1 border-t border-orange-100 space-y-1">
+              <div className="flex items-center justify-between">
+                <p className="text-xs text-gray-400">测你的结果 → cihulu.store</p>
+                <p className="text-xs text-gray-400">@西葫芦爆炒鸡蛋</p>
+              </div>
+              <p className="text-xs text-gray-300">测试结果仅供娱乐 · 图片由豆包AI生成</p>
             </div>
           </div>
 
