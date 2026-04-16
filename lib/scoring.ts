@@ -35,18 +35,20 @@ function euclidean(a: FoodVector, b: FoodVector): number {
   return Math.sqrt(a.reduce((sum, val, i) => sum + (val - b[i]) ** 2, 0));
 }
 
-// 找最近的食物
+// 找最近的食物（平局时随机选）
 export function findNearestFood(userVector: FoodVector) {
-  let nearest = FOODS[0];
+  let candidates: typeof FOODS = [];
   let minDist = Infinity;
 
   for (const food of FOODS) {
     const dist = euclidean(userVector, food.vector);
-    if (dist < minDist) {
+    if (dist < minDist - 1e-9) {
       minDist = dist;
-      nearest = food;
+      candidates = [food];
+    } else if (dist < minDist + 1e-9) {
+      candidates.push(food);
     }
   }
 
-  return nearest;
+  return candidates[Math.floor(Math.random() * candidates.length)];
 }
