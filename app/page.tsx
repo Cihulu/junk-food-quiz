@@ -15,24 +15,33 @@ export default function Home() {
   const cardRef = useRef<HTMLDivElement>(null);
 
   async function captureCard(): Promise<Blob> {
-    const img = cardRef.current?.querySelector("img");
+    const card = cardRef.current!;
+    const imgEl = card.querySelector("img") as HTMLImageElement | null;
     let originalSrc = "";
-    if (img) {
-      originalSrc = img.src;
+
+    if (imgEl) {
+      originalSrc = imgEl.src;
       try {
-        const res = await fetch(img.src);
-        const imgBlob = await res.blob();
-        const dataUrl = await new Promise<string>((resolve) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(reader.result as string);
-          reader.readAsDataURL(imgBlob);
-        });
-        img.src = dataUrl;
+        // 用 canvas drawImage 直接从浏览器已渲染的图片拿 dataURL，无需重新请求
+        const cvs = document.createElement("canvas");
+        cvs.width = imgEl.naturalWidth || 400;
+        cvs.height = imgEl.naturalHeight || 400;
+        cvs.getContext("2d")!.drawImage(imgEl, 0, 0);
+        imgEl.src = cvs.toDataURL("image/png");
       } catch (_) {}
     }
+
+    // 截图时去掉圆角，变成规则矩形
+    const origRadius = card.style.borderRadius;
+    card.style.borderRadius = "0";
+
     const { toBlob } = await import("html-to-image");
-    const blob = await toBlob(cardRef.current!, { pixelRatio: 2, skipFonts: false });
-    if (img && originalSrc) img.src = originalSrc;
+    const blob = await toBlob(card, { pixelRatio: 2, skipFonts: false });
+
+    // 恢复
+    card.style.borderRadius = origRadius;
+    if (imgEl && originalSrc) imgEl.src = originalSrc;
+
     return blob!;
   }
 
