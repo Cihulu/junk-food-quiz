@@ -16,7 +16,7 @@ export default function Home() {
 
   async function shareResult() {
     const url = window.location.href;
-    const text = `我测出来是${prefix ? prefix : ""}${result?.name}！反正都是垃圾食品，你是哪种？`;
+    const text = `我测出来是${prefix ? prefix : ""}${result?.name}！反正都是垃圾食品，你是哪种美味的垃圾呢？`;
     if (navigator.share) {
       await navigator.share({ title: "假如你是一种垃圾食品", text, url });
     } else {
@@ -127,7 +127,7 @@ export default function Home() {
   }
 
   if (phase === "result" && result) {
-    const descParagraphs = result.description.split("\n\n");
+    const descParagraphs = result.description.split("\n");
     const kcalPercent = Math.round((result.kcal / 767) * 100);
 
     return (
@@ -135,7 +135,7 @@ export default function Home() {
         <div className="max-w-md w-full space-y-6">
 
           {/* 结果卡片 */}
-          <div className="bg-amber-50 border border-orange-100 rounded-3xl px-6 pt-8 pb-5 space-y-4">
+          <div className="bg-amber-50 border border-orange-300 rounded-3xl px-6 pt-8 pb-5 space-y-4">
             <p className="text-center text-xs text-orange-300 tracking-widest">假如你是一种垃圾食品</p>
             <img
               src={`/images/${result.id}.png`}
@@ -163,7 +163,7 @@ export default function Home() {
                   <p className="text-2xl font-semibold text-gray-800">{result.kcal} <span className="text-xs font-normal text-gray-400">kcal</span></p>
                   <p className="text-xs text-gray-600 mt-0.5">{result.portion}</p>
                 </div>
-                <p className="text-xs text-gray-600 text-right leading-relaxed max-w-[160px]">{result.calorieCompare}</p>
+                <p className="text-xs text-gray-600 text-right leading-snug max-w-[160px] whitespace-pre-line">{result.calorieCompare}</p>
               </div>
               <div className="h-1 bg-orange-100 rounded-full">
                 <div className="h-1 bg-orange-400 rounded-full" style={{ width: `${Math.min(kcalPercent, 100)}%` }} />
@@ -172,7 +172,7 @@ export default function Home() {
             {/* 截图钩子 */}
             <div className="pt-1 border-t border-orange-100 flex items-center justify-between">
               <p className="text-xs text-gray-400">测你的结果 → junk-food-quiz.vercel.app</p>
-              <p className="text-xs text-gray-400">@西葫芦</p>
+              <p className="text-xs text-gray-400">@西葫芦爆炒鸡蛋</p>
             </div>
           </div>
 
