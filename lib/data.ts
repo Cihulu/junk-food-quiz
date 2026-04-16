@@ -128,8 +128,8 @@ export const QUESTIONS: Question[] = [
     options: [
       { text: "本品总是处于巅峰状态，请随意品鉴", scores: { ACTIVATION: 2 } },
       { text: "我在等待对的人、对的时间、对的状态……", scores: { ACTIVATION: 0 } },
-      { text: "刚出锅/刚拆封的第一时间", scores: { ACTIVATION: 0.5 } },
-      { text: "出现在人类脑海里并使人类开始分泌唾液的时候", scores: { ACTIVATION: 1.5 } },
+      { text: "刚出锅/刚拆封的第一时间", scores: { ACTIVATION: 0.6 } },
+      { text: "出现在人类脑海里并使人类开始分泌唾液的时候", scores: { ACTIVATION: 1.4 } },
     ],
   },
   {
@@ -139,8 +139,8 @@ export const QUESTIONS: Question[] = [
     options: [
       { text: "人类无法抵抗我的美味…生理性喜欢罢了", scores: { ENERGY: 2 } },
       { text: "我一定会在某个场合/时间段被需要", scores: { ENERGY: 0 } },
-      { text: "我可以表达一种特定的情感链接", scores: { ENERGY: 0.5 } },
-      { text: "美味还不够吗？", scores: { ENERGY: 1.5 } },
+      { text: "我可以表达一种特定的情感链接", scores: { ENERGY: 0.4 } },
+      { text: "美味还不够吗？", scores: { ENERGY: 1.6 } },
     ],
   },
   {
@@ -148,8 +148,8 @@ export const QUESTIONS: Question[] = [
     dimension: "SOCIAL",
     text: "货架畅销王是你旁边那位，大家都在关注ta，没几个人看你。你……",
     options: [
-      { text: "哦呵呵…不是所有人类都配得上品鉴我", scores: { SOCIAL: 0.5 } },
-      { text: "我早已不在乎恶评，自有人把我爱惨", scores: { SOCIAL: 1.5 } },
+      { text: "哦呵呵…不是所有人类都配得上品鉴我", scores: { SOCIAL: 0.6 } },
+      { text: "我早已不在乎恶评，自有人把我爱惨", scores: { SOCIAL: 1.4 } },
       { text: "不可能发生这种事，我的人气不管在哪里都毋庸置疑", scores: { SOCIAL: 2 } },
       { text: "我乐得清闲、、", scores: { SOCIAL: 0 } },
     ],
@@ -160,9 +160,9 @@ export const QUESTIONS: Question[] = [
     text: "第一次品鉴你的人，可能会想说？",
     options: [
       { text: "\"就是想象中的味道，感觉小时候抱过我\"", scores: { CONTRAST: 0 } },
-      { text: "\"没想到吃起来超香\"", scores: { CONTRAST: 1.5 } },
+      { text: "\"没想到吃起来超香\"", scores: { CONTRAST: 1.4 } },
       { text: "\"（研究一番卡路里后）额你竟然是这样的热量炸弹，终究是错付了\"", scores: { CONTRAST: 2 } },
-      { text: "\"下次还买，因为品控稳稳的热量高高的，很安心\"", scores: { CONTRAST: 0.5 } },
+      { text: "\"下次还买，因为品控稳稳的热量高高的，很安心\"", scores: { CONTRAST: 0.6 } },
     ],
   },
   {
@@ -170,8 +170,8 @@ export const QUESTIONS: Question[] = [
     dimension: "ACTIVATION",
     text: "你被人类带到了一个完全不属于你的场合（比如高档餐厅的餐桌上（噢没有说你低档的意思！））。你感觉……",
     options: [
-      { text: "格格不入，俺要回村", scores: { ACTIVATION: 0.5 } },
-      { text: "无所谓，本品在哪都将惊艳全场", scores: { ACTIVATION: 1.5 } },
+      { text: "格格不入，俺要回村", scores: { ACTIVATION: 0.6 } },
+      { text: "无所谓，本品在哪都将惊艳全场", scores: { ACTIVATION: 1.4 } },
       { text: "我仅需等一个懂我的人类出现", scores: { ACTIVATION: 0 } },
       { text: "拜托！这种场合是其它食物蹭我的热度好吗", scores: { ACTIVATION: 2 } },
     ],
@@ -182,8 +182,8 @@ export const QUESTIONS: Question[] = [
     text: "有人类说「我这辈子都不会吃xx」，说的就是你。你怎么看？",
     options: [
       { text: "ta应该不是人类啵 哦呵呵……^ ^", scores: { ENERGY: 2 } },
-      { text: "其实呢，人类都会有需要我的时候，你不需要我只是因为你现在不需要，但是总有一天你会突然理解我的好", scores: { ENERGY: 1.5 } },
-      { text: "也许ta还没到能欣赏我的年纪", scores: { ENERGY: 0.5 } },
+      { text: "其实呢，人类都会有需要我的时候，你不需要我只是因为你现在不需要，但是总有一天你会突然理解我的好", scores: { ENERGY: 1.4 } },
+      { text: "也许ta还没到能欣赏我的年纪", scores: { ENERGY: 0.6 } },
       { text: "愚昧的人类", scores: { ENERGY: 0 } },
     ],
   },
@@ -192,9 +192,9 @@ export const QUESTIONS: Question[] = [
     dimension: "SOCIAL",
     text: "如果你可以在外包装上印一句宣传语，你会印哪句？",
     options: [
-      { text: "「究极美味！」", scores: { SOCIAL: 1 } },
+      { text: "「究极美味！」", scores: { SOCIAL: 1.2 } },
       { text: "爱吃不吃 我无需宣传", scores: { SOCIAL: 0 } },
-      { text: "「有品的自会懂」", scores: { SOCIAL: 1 } },
+      { text: "「有品的自会懂」", scores: { SOCIAL: 0.8 } },
       { text: "「全年销量可绕地球xx圈」", scores: { SOCIAL: 2 } },
     ],
   },
@@ -204,9 +204,9 @@ export const QUESTIONS: Question[] = [
     text: "如果你一夜之间莫名其妙上了热搜黑榜，你觉得最可能是因为……",
     options: [
       { text: "我太美妙，被对家看不顺眼买通稿了", scores: { CONTRAST: 2 } },
-      { text: "卫生问题吧嘻嘻，但又怎样呢", scores: { CONTRAST: 1 } },
+      { text: "卫生问题吧嘻嘻，但又怎样呢", scores: { CONTRAST: 0.8 } },
       { text: "控诉我不符合《中国居民膳食指南》推荐的饮食结构", scores: { CONTRAST: 0 } },
-      { text: "恶评不看（其实是因为看了会创伤应激", scores: { CONTRAST: 1 } },
+      { text: "恶评不看（其实是因为看了会创伤应激", scores: { CONTRAST: 1.2 } },
     ],
   },
   {
@@ -215,8 +215,8 @@ export const QUESTIONS: Question[] = [
     text: "有人类发了一条「这个xx真的难吃 恶心 避雷」。你第一反应是？",
     options: [
       { text: "我管你喜欢什么。。0人在乎你的评价吧", scores: { SOCIAL: 0 } },
-      { text: '只一味打开收藏夹反复观看人类的各种"绝绝子""美味到跺jiojio"', scores: { SOCIAL: 1 } },
-      { text: "此人品味太小众，爱我的人已排到巴黎", scores: { SOCIAL: 1 } },
+      { text: '只一味打开收藏夹反复观看人类的各种"绝绝子""美味到跺jiojio"', scores: { SOCIAL: 1.2 } },
+      { text: "此人品味太小众，爱我的人已排到巴黎", scores: { SOCIAL: 0.8 } },
       { text: '破防捶墙尖叫"这绝不可能！！！"', scores: { SOCIAL: 2 } },
     ],
   },
@@ -226,9 +226,9 @@ export const QUESTIONS: Question[] = [
     text: "你的食用场景？",
     options: [
       { text: "人走在路上，不小心闻到我的香味，于是坚定地选择了我", scores: { ENERGY: 2 } },
-      { text: "这个嘛，人类总是有个理由还是借口的，我咋知道", scores: { ENERGY: 1 } },
+      { text: "这个嘛，人类总是有个理由还是借口的，我咋知道", scores: { ENERGY: 0.8 } },
       { text: "某年某月的某一天，我的美味终于被ta发现", scores: { ENERGY: 0 } },
-      { text: "。。。。什么场景什么痛点什么颗粒度什么什么什么意思。。", scores: { ENERGY: 1 } },
+      { text: "。。。。什么场景什么痛点什么颗粒度什么什么什么意思。。", scores: { ENERGY: 1.2 } },
     ],
   },
 ];
