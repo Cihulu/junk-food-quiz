@@ -66,7 +66,7 @@ export default function Home() {
           >
             开始测试 →
           </button>
-          <p className="text-xs text-gray-400">测试结果仅供娱乐 · 图片由豆包AI生成 · 作者@西葫芦爆炒鸡蛋</p>
+          <p className="text-xs text-gray-400">测试结果仅供娱乐 · 图片由豆包AI生成</p>
         </div>
       </main>
     );
