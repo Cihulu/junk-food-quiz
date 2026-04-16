@@ -167,6 +167,8 @@ export default function Home() {
             fontFamily: "-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif",
             width: 400,
             boxSizing: "border-box",
+            marginLeft: "auto",
+            marginRight: "auto",
           }}>
             <p style={{ textAlign: "center", fontSize: 11, color: "#fdba74", letterSpacing: "0.12em", margin: 0 }}>假如你是一种垃圾食品</p>
             <img
