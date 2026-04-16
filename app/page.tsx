@@ -19,6 +19,7 @@ export default function Home() {
     const blob = await toBlob(cardRef.current!, {
       pixelRatio: 2,
       skipFonts: false,
+      fetchRequestInit: { cache: "no-cache" },
     });
     return blob!;
   }
@@ -171,6 +172,7 @@ export default function Home() {
             <img
               src={`/images/${result.id}.png`}
               alt={result.name}
+              crossOrigin="anonymous"
               style={{ width: 120, height: 120, objectFit: "contain", margin: "0 auto", display: "block", flexShrink: 0 }}
             />
             <div style={{ textAlign: "center" }}>
