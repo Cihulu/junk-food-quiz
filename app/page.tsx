@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { QUESTIONS } from "@/lib/data";
 import { computeUserVector, findNearestFood } from "@/lib/scoring";
 
@@ -12,59 +12,17 @@ export default function Home() {
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [result, setResult] = useState<ReturnType<typeof findNearestFood> | null>(null);
   const [prefix, setPrefix] = useState("");
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  async function captureCard(): Promise<Blob> {
-    const card = cardRef.current!;
-    const imgEl = card.querySelector("img") as HTMLImageElement | null;
-    let originalSrc = "";
-
-    if (imgEl) {
-      originalSrc = imgEl.src;
-      try {
-        // 用 canvas drawImage 直接从浏览器已渲染的图片拿 dataURL，无需重新请求
-        const cvs = document.createElement("canvas");
-        cvs.width = imgEl.naturalWidth || 400;
-        cvs.height = imgEl.naturalHeight || 400;
-        cvs.getContext("2d")!.drawImage(imgEl, 0, 0);
-        imgEl.src = cvs.toDataURL("image/png");
-      } catch (_) {}
-    }
-
-    // 截图时去掉圆角，变成规则矩形
-    const origRadius = card.style.borderRadius;
-    card.style.borderRadius = "0";
-
-    const { toBlob } = await import("html-to-image");
-    const blob = await toBlob(card, { pixelRatio: 2, skipFonts: false });
-
-    // 恢复
-    card.style.borderRadius = origRadius;
-    if (imgEl && originalSrc) imgEl.src = originalSrc;
-
-    return blob!;
-  }
-
-  async function saveImage() {
-    if (!cardRef.current) return;
-    const blob = await captureCard();
-    const link = document.createElement("a");
-    link.download = `${result?.name ?? "result"}.png`;
-    link.href = URL.createObjectURL(blob);
-    link.click();
-  }
+  const [copied, setCopied] = useState(false);
 
   async function shareResult() {
-    if (!cardRef.current) return;
-    const blob = await captureCard();
-    const file = new File([blob], `${result?.name ?? "result"}.png`, { type: "image/png" });
-    if (navigator.canShare?.({ files: [file] })) {
-      await navigator.share({ files: [file], title: `我是${prefix ? prefix + "的" : ""}${result?.name}` });
+    const url = window.location.href;
+    const text = `我测出来是${prefix ? prefix : ""}${result?.name}！反正都是垃圾食品，你是哪种？`;
+    if (navigator.share) {
+      await navigator.share({ title: "假如你是一种垃圾食品", text, url });
     } else {
-      const link = document.createElement("a");
-      link.download = file.name;
-      link.href = URL.createObjectURL(blob);
-      link.click();
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
   }
 
@@ -176,58 +134,45 @@ export default function Home() {
       <main className="min-h-screen flex flex-col items-center justify-center bg-yellow-50 p-8">
         <div className="max-w-md w-full space-y-6">
 
-          {/* 分享卡片 —— 全部 inline style，截图用 */}
-          <div ref={cardRef} style={{
-            background: "#fefce8",
-            borderRadius: 24,
-            padding: "28px 24px 24px",
-            display: "flex",
-            flexDirection: "column",
-            gap: 12,
-            border: "1px solid #fed7aa",
-            fontFamily: "-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif",
-            width: "100%",
-            boxSizing: "border-box",
-          }}>
-            <p style={{ textAlign: "center", fontSize: 11, color: "#fdba74", letterSpacing: "0.12em", margin: 0 }}>假如你是一种垃圾食品</p>
+          {/* 结果卡片 */}
+          <div className="bg-amber-50 border border-orange-100 rounded-3xl px-6 pt-8 pb-5 space-y-4">
+            <p className="text-center text-xs text-orange-300 tracking-widest">假如你是一种垃圾食品</p>
             <img
               src={`/images/${result.id}.png`}
               alt={result.name}
-              crossOrigin="anonymous"
-              style={{ width: 120, height: 120, objectFit: "contain", margin: "0 auto", display: "block", flexShrink: 0 }}
+              className="w-36 h-36 object-contain mx-auto block"
             />
-            <div style={{ textAlign: "center" }}>
+            <div className="text-center">
               {prefix ? (
-                <h2 style={{ fontSize: 28, fontWeight: 700, color: "#1f2937", margin: 0 }}>
-                  <span style={{ color: "#fb923c" }}>{prefix}</span>{result.name}
+                <h2 className="text-3xl font-bold text-gray-800">
+                  <span className="text-orange-400">{prefix}</span>{result.name}
                 </h2>
               ) : (
-                <h2 style={{ fontSize: 28, fontWeight: 700, color: "#1f2937", margin: 0 }}>{result.name}</h2>
+                <h2 className="text-3xl font-bold text-gray-800">{result.name}</h2>
               )}
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            <div className="space-y-2">
               {descParagraphs.map((p, i) => (
-                <p key={i} style={{ margin: 0, fontSize: 13, fontWeight: 600, color: "#1f2937", lineHeight: 1.7 }}>{p}</p>
+                <p key={i} className="text-sm font-semibold text-gray-800 leading-relaxed">{p}</p>
               ))}
             </div>
-            <div style={{ background: "#fff", borderRadius: 16, padding: "10px 14px", display: "flex", flexDirection: "column", gap: 7, flexShrink: 0 }}>
-              <p style={{ margin: 0, fontSize: 10, color: "#9ca3af", letterSpacing: "0.1em" }}>热量现实核查</p>
-              <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}>
+            <div className="bg-white rounded-2xl px-4 py-3 space-y-2">
+              <p className="text-xs text-gray-400 tracking-widest">热量现实核查</p>
+              <div className="flex items-end justify-between">
                 <div>
-                  <p style={{ margin: 0, fontSize: 22, fontWeight: 600, color: "#1f2937" }}>
-                    {result.kcal} <span style={{ fontSize: 11, fontWeight: 400, color: "#9ca3af" }}>kcal</span>
-                  </p>
-                  <p style={{ margin: "2px 0 0", fontSize: 11, color: "#374151" }}>{result.portion}</p>
+                  <p className="text-2xl font-semibold text-gray-800">{result.kcal} <span className="text-xs font-normal text-gray-400">kcal</span></p>
+                  <p className="text-xs text-gray-600 mt-0.5">{result.portion}</p>
                 </div>
-                <p style={{ margin: 0, fontSize: 11, color: "#374151", textAlign: "right", lineHeight: 1.6, maxWidth: 160 }}>{result.calorieCompare}</p>
+                <p className="text-xs text-gray-600 text-right leading-relaxed max-w-[160px]">{result.calorieCompare}</p>
               </div>
-              <div style={{ height: 4, background: "#ffedd5", borderRadius: 9999 }}>
-                <div style={{ height: 4, background: "#fb923c", borderRadius: 9999, width: `${Math.min(kcalPercent, 100)}%` }} />
+              <div className="h-1 bg-orange-100 rounded-full">
+                <div className="h-1 bg-orange-400 rounded-full" style={{ width: `${Math.min(kcalPercent, 100)}%` }} />
               </div>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <p style={{ margin: 0, fontSize: 10, color: "#d1d5db" }}>测试结果仅供娱乐 · 图片由豆包AI生成</p>
-              <p style={{ margin: 0, fontSize: 10, color: "#d1d5db" }}>@西葫芦</p>
+            {/* 截图钩子 */}
+            <div className="pt-1 border-t border-orange-100 flex items-center justify-between">
+              <p className="text-xs text-gray-400">测你的结果 → junk-food-quiz.vercel.app</p>
+              <p className="text-xs text-gray-400">@西葫芦</p>
             </div>
           </div>
 
@@ -247,20 +192,14 @@ export default function Home() {
           {/* 操作按钮 */}
           <div className="flex gap-3 justify-center">
             <button
-              onClick={saveImage}
-              className="bg-orange-400 hover:bg-orange-500 text-white font-bold py-3 px-6 rounded-full text-sm transition"
-            >
-              保存图片
-            </button>
-            <button
               onClick={shareResult}
-              className="bg-white hover:bg-orange-50 border border-orange-300 text-orange-500 font-bold py-3 px-6 rounded-full text-sm transition"
+              className="bg-orange-400 hover:bg-orange-500 text-white font-bold py-3 px-8 rounded-full text-sm transition"
             >
-              分享
+              {copied ? "链接已复制！" : "分享"}
             </button>
             <button
               onClick={restart}
-              className="bg-white hover:bg-orange-50 border border-orange-200 text-gray-500 font-bold py-3 px-6 rounded-full text-sm transition"
+              className="bg-white hover:bg-orange-50 border border-orange-200 text-gray-500 font-bold py-3 px-8 rounded-full text-sm transition"
             >
               再测一次
             </button>
