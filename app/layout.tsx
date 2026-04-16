@@ -15,6 +15,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "假如你是一种垃圾食品",
   description: "反正都是垃圾食品，你是哪种美味的垃圾呢？",
+  openGraph: {
+    title: "假如你是一种垃圾食品",
+    description: "反正都是垃圾食品，你是哪种美味的垃圾呢？",
+    url: "https://cihulu.store",
+    images: [{ url: "https://cihulu.store/og-image.png", width: 800, height: 800 }],
+  },
 };
 
 export default function RootLayout({
