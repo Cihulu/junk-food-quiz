@@ -15,12 +15,24 @@ export default function Home() {
   const cardRef = useRef<HTMLDivElement>(null);
 
   async function captureCard(): Promise<Blob> {
+    const img = cardRef.current?.querySelector("img");
+    let originalSrc = "";
+    if (img) {
+      originalSrc = img.src;
+      try {
+        const res = await fetch(img.src);
+        const imgBlob = await res.blob();
+        const dataUrl = await new Promise<string>((resolve) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result as string);
+          reader.readAsDataURL(imgBlob);
+        });
+        img.src = dataUrl;
+      } catch (_) {}
+    }
     const { toBlob } = await import("html-to-image");
-    const blob = await toBlob(cardRef.current!, {
-      pixelRatio: 2,
-      skipFonts: false,
-      fetchRequestInit: { cache: "no-cache" },
-    });
+    const blob = await toBlob(cardRef.current!, { pixelRatio: 2, skipFonts: false });
+    if (img && originalSrc) img.src = originalSrc;
     return blob!;
   }
 
@@ -165,10 +177,8 @@ export default function Home() {
             gap: 12,
             border: "1px solid #fed7aa",
             fontFamily: "-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif",
-            width: "min(400px, 100%)",
+            width: "100%",
             boxSizing: "border-box",
-            marginLeft: "auto",
-            marginRight: "auto",
           }}>
             <p style={{ textAlign: "center", fontSize: 11, color: "#fdba74", letterSpacing: "0.12em", margin: 0 }}>假如你是一种垃圾食品</p>
             <img
